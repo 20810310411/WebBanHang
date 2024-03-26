@@ -1,0 +1,101 @@
+﻿@model IEnumerable<WebBanHang.Models.SanPham>
+
+@{
+    ViewBag.Title = "DanhSach";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2>DanhSach</h2>
+
+<p>
+    <a href="~/Admin/SanPham/ThemMoi" class="btn btn-primary">Thêm Mới</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tên Sản Phẩm
+        </th>
+        <th>
+            Giá Bán
+        </th>
+        <th>
+            Giá Cũ
+        </th>
+        <th>
+            Thuộc Tính
+        </th>
+        <th>
+            Số Lượng Tồn
+        </th>
+        <th>
+            Số Lượng Bán
+        </th>
+        <th>
+            Số Lượt Đánh Giá
+        </th>
+        <th>
+            Ảnh 1
+        </th>
+        <th>
+            Ảnh 2
+        </th>
+        <th>
+            Ảnh 3
+        </th>
+        <th>
+            Mô Tả
+        </th>
+        <th>
+            Loại Sản Phẩm
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenSP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaBan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaCu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.New_Hot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuongTon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuongBan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuotDanhGia)
+            </td>
+            <td>
+                <img width="150" height="150" src="@item.Image1" />
+            </td>
+            <td>
+                <img width="150" height="150" src="@item.Image2" />
+            </td>
+            <td>
+                <img width="150" height="150" src="@item.Image3" />
+            </td>
+
+            <td>
+                @Html.Raw(item.MoTa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TheLoai.TenLoaiSP)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "CapNhat", new { id = item.ID }) |
+                @Html.ActionLink("Xóa", "Xoa", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

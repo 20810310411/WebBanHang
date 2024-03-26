@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="261fb4ae81c843b4a8327805b5ba5479" Name="Diagram1">
+        <EntityTypeShape EntityType="WebThuCungModel.ChucNang" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebThuCungModel.NhanVien" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebThuCungModel.PhanQuyen" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebThuCungModel.SanPham" Width="1.5" PointX="9.375" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebThuCungModel.TheLoai" Width="1.5" PointX="6.25" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="WebThuCungModel.FK_PhanQuyen_ChucNang" ManuallyRouted="false" />
+        <AssociationConnector Association="WebThuCungModel.FK_PhanQuyen_NhanVien" ManuallyRouted="false" />
+        <AssociationConnector Association="WebThuCungModel.FK_SanPham_TheLoai" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

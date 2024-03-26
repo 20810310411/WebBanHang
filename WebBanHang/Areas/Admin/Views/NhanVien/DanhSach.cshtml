@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WebBanHang.Models.NhanVien>
+
+@{
+    ViewBag.Title = "DanhSach";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2>DanhSach</h2>
+
+<p>
+    <a href="~/Admin/NhanVien/ThemMoi" class="btn btn-primary">Thêm Mới</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tên Nhân Viên
+        </th>
+        <th>
+            UserName
+        </th>
+        <th>
+            Mật Khẩu
+        </th>
+        <th>
+            Số Điện Thoại
+        </th>
+        <th>
+            Ngày Sinh
+        </th>
+        <th>
+            Chức Vụ
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenNhanVien)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgaySinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChucVu)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "CapNhat", new { id=item.ID }) |
+            @Html.ActionLink("Xóa", "Xoa", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

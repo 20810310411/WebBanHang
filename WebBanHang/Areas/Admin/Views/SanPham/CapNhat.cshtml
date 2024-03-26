@@ -1,0 +1,172 @@
+﻿@model WebBanHang.Models.SanPham
+
+@{
+    ViewBag.Title = "CapNhat";
+    Layout = "~/Areas/Admin/Views/Shared/layoutAdmin.cshtml";
+    WebBanHang.Models.WebThuCungEntities db = new WebBanHang.Models.WebThuCungEntities();
+}
+
+<h2>CapNhat</h2>
+
+
+@using (Html.BeginForm("CapNhat", "SanPham", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>SanPham</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label>Tên Sản Phẩm: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Giá Bán: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GiaBan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Giá Cũ: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GiaCu, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GiaCu, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Thuộc Tính: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.New_Hot, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.New_Hot, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Số Lượng Tồn: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoLuongTon, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Số Lượng Bán: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuongBan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoLuongBan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Số Lượt Đánh Giá: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuotDanhGia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoLuotDanhGia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Loại sản phẩm <span style="color:red;">*</span></label>
+            <div class="col-md-10">
+                <select name="IdLoaiSP" class="form-control">
+                    @foreach (var item in db.TheLoais.ToList())
+                    {
+                        <option value="@item.ID">@item.TenLoaiSP</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.IdLoaiSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình ảnh 1 <span style="color:red;">*</span></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Image1, new { htmlAttributes = new { @class = "form-control" } })
+                <a class="btn btn-primary" onclick="BrowseServer()">Thêm Hình Ảnh 1</a>
+                @Html.ValidationMessageFor(model => model.Image1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình ảnh 2 <span style="color:red;">*</span></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Image2, new { htmlAttributes = new { @class = "form-control" } })
+                <a class="btn btn-primary" onclick="BrowseServer2()">Thêm Hình Ảnh 2</a>
+                @Html.ValidationMessageFor(model => model.Image2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình ảnh 3 <span style="color:red;">*</span></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Image3, new { htmlAttributes = new { @class = "form-control" } })
+                <a class="btn btn-primary" onclick="BrowseServer3()">Thêm Hình Ảnh 3</a>
+                @Html.ValidationMessageFor(model => model.Image3, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Mô tả</label>
+            <div class="col-md-10">
+                <textarea class="form-control" name="MoTa" id="txtNoiDung"></textarea>
+                @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Sửa" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section doanJS {
+    <script>
+        // xử lý textarea theo form word
+        CKEDITOR.replace('txtNoiDung')
+
+        // xử lý upload ảnh
+        function BrowseServer() {
+            var finder = new CKFinder();
+            finder.selectActionFunction = GanUrlChoTruongHinhAnh;
+            finder.popup();
+        }
+        function BrowseServer2() {
+            var finder = new CKFinder();
+            finder.selectActionFunction = GanUrlChoTruongHinhAnh2;
+            finder.popup();
+        }
+        function BrowseServer3() {
+            var finder = new CKFinder();
+            finder.selectActionFunction = GanUrlChoTruongHinhAnh3;
+            finder.popup();
+        }
+
+        function GanUrlChoTruongHinhAnh(url) {
+            $("input[name=Image1]").val(url);
+        }
+        function GanUrlChoTruongHinhAnh2(url) {
+            $("input[name=Image2]").val(url);
+        }
+        function GanUrlChoTruongHinhAnh3(url) {
+            $("input[name=Image3]").val(url);
+        }
+    </script>
+}

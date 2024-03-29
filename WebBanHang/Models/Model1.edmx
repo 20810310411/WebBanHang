@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WebThuCungModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WebThuCungModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChucNang">
           <Key>
             <PropertyRef Name="ID" />
@@ -50,6 +50,7 @@
           <Property Name="Image2" Type="nvarchar" MaxLength="200" />
           <Property Name="Image3" Type="nvarchar" MaxLength="200" />
           <Property Name="MoTa" Type="nvarchar(max)" />
+          <Property Name="NB_BC" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TheLoai">
           <Key>
@@ -114,8 +115,7 @@
             <End Role="SanPham" EntitySet="SanPham" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WebThuCungModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -169,6 +169,7 @@
           <Property Name="Image3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TheLoai" Relationship="Self.FK_SanPham_TheLoai" FromRole="SanPham" ToRole="TheLoai" />
+          <Property Name="NB_BC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TheLoai">
           <Key>
@@ -273,6 +274,7 @@
           <EntitySetMapping Name="SanPhams">
             <EntityTypeMapping TypeName="WebThuCungModel.SanPham">
               <MappingFragment StoreEntitySet="SanPham">
+                <ScalarProperty Name="NB_BC" ColumnName="NB_BC" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TenSP" ColumnName="TenSP" />
                 <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />

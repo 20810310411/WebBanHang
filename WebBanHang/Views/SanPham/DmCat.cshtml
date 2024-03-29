@@ -1,11 +1,11 @@
 ﻿@using WebBanHang.Models;
 @model IEnumerable<SanPham>
 @{
-    ViewBag.Title = "DmDog";
+    ViewBag.Title = "DmCat";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
-    IEnumerable<SanPham> chocanh = (IEnumerable<SanPham>)ViewBag.CC;
+    IEnumerable<SanPham> meocanh = (IEnumerable<SanPham>)ViewBag.MC;
 }
 
 
@@ -61,11 +61,11 @@
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                 <div class="row">
                                     @Html.Partial("~/Views/SanPham/TrangSanPhamPartial.cshtml")
+
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="list-view">
                                         @Html.Partial("~/Views/SanPham/TrangSanPhamPartial2.cshtml")
-
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,55 @@
+﻿@using WebBanHang.Models;
+@model IEnumerable<SanPham>
+
+@foreach (var item in Model)
+{
+    <div class="list-view-box">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                <div class="products-single fix">
+                    <div class="box-img-hover">
+                        @{
+                            if (item.New_Hot == "New")
+                            {
+                                <div class="type-lb">
+                                    <p class="new">New</p>
+                                </div>
+                            }
+                            else if (item.New_Hot == "Hot")
+                            {
+                                <div class="type-lb">
+                                    <p style="background-color: red; color:white">HOT</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="type-lb">
+                                    <p class="sale">Sale</p>
+                                </div>
+                            }
+                        }
+                        <img src="@item.Image1" class="img-fluid" alt="Image" style="height:250px; width:250px">
+                        <div class="mask-icon">
+                            <ul>
+                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
+                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                <div class="why-text full-width">
+                    <h4>@item.TenSP</h4>
+                    <h5>@item.GiaBan.Value.ToString("#,##") VNĐ</h5>
+                    <p>
+                        @item.MoTa
+                    </p>
+                    <a class="btn hvr-hover" href="#">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

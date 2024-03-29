@@ -3220,6 +3220,11 @@
     <Content Include="Views\Home\Wishlist.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\SanPham\DmDog.cshtml" />
+    <Content Include="Views\Home\TrangChuPartial.cshtml" />
+    <Content Include="Views\SanPham\TrangSanPhamPartial.cshtml" />
+    <Content Include="Views\SanPham\DmCat.cshtml" />
+    <Content Include="Views\SanPham\DmPhuKien.cshtml" />
+    <Content Include="Views\SanPham\TrangSanPhamPartial2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

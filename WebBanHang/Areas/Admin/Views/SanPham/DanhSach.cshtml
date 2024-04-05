@@ -1,4 +1,7 @@
-﻿@model IEnumerable<WebBanHang.Models.SanPham>
+﻿@*@model IEnumerable<WebBanHang.Models.SanPham>*@
+@using WebBanHang.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<SanPham>
 
 @{
     ViewBag.Title = "DanhSach";
@@ -99,3 +102,44 @@
     }
 
 </table>
+@* tao lien ket cac trang *@
+<span style="margin-top: 10px; color: mediumpurple; font-weight: bold; font-size: 20px">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+</span>
+<div class="pagination">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("DanhSach", new { page = Model.PageNumber - 1 })" tabindex="-1">&laquo;</a>
+            </li>
+
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("DanhSach", new { page = i })">@i <span class="sr-only">(current)</span></a>
+                </li>
+            }
+
+            <li class="page-item @(Model.PageNumber == Model.PageCount ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("DanhSach", new { page = Model.PageNumber + 1 })">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+@* end tao lien ket cac trang *@
+
+<style>
+    .pagination {
+        font-size: 18px;
+        text-align: center;
+        position: relative;
+        left: 38%;
+    }
+
+</style>
+@section scriptcss {
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+}

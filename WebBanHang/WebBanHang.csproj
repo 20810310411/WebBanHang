@@ -57,6 +57,12 @@
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -170,6 +176,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TheLoai.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TLbo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1963,6 +1972,7 @@
     <Content Include="Content\js\jquery.superslides.min.js" />
     <Content Include="Content\js\owl.carousel.min.js" />
     <Content Include="Content\js\popper.min.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Plugin\ckeditor\adapters\jquery.js" />
     <Content Include="Content\Plugin\ckeditor\build-config.js" />
     <Content Include="Content\Plugin\ckeditor\ckeditor.js" />
@@ -3213,7 +3223,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Shop.cshtml" />
-    <Content Include="Views\Home\ShopDetail.cshtml" />
+    <Content Include="Views\Home\ChiTietSP.cshtml" />
     <Content Include="Views\Home\Cart.cshtml" />
     <Content Include="Views\Home\Checkout.cshtml" />
     <Content Include="Views\Home\MyAccount.cshtml" />
@@ -3225,6 +3235,11 @@
     <Content Include="Views\SanPham\DmCat.cshtml" />
     <Content Include="Views\SanPham\DmPhuKien.cshtml" />
     <Content Include="Views\SanPham\TrangSanPhamPartial2.cshtml" />
+    <Content Include="Views\Home\ChiTietSPPartial.cshtml" />
+    <Content Include="Views\Home\ReviewPartial.cshtml" />
+    <Content Include="Views\Home\SPLienQuanPartial.cshtml" />
+    <Content Include="Views\SanPham\TrangSanPhamPartial3.cshtml" />
+    <Content Include="Views\SanPham\PhanLoaiSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

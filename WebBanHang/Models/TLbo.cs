@@ -12,21 +12,18 @@ namespace WebBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TheLoai
+    public partial class TLbo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TheLoai()
+        public TLbo()
         {
-            this.SanPhams = new HashSet<SanPham>();
+            this.TheLoais = new HashSet<TheLoai>();
         }
     
         public int ID { get; set; }
-        public string TenLoaiSP { get; set; }
-        public string GhiChu { get; set; }
-        public Nullable<int> idTLbo { get; set; }
+        public string TenTL { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SanPham> SanPhams { get; set; }
-        public virtual TLbo TLbo { get; set; }
+        public virtual ICollection<TheLoai> TheLoais { get; set; }
     }
 }

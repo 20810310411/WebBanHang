@@ -30,5 +30,6 @@ namespace WebBanHang.Models
         public virtual DbSet<PhanQuyen> PhanQuyens { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<TheLoai> TheLoais { get; set; }
+        public virtual DbSet<TLbo> TLboes { get; set; }
     }
 }

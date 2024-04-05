@@ -1,8 +1,11 @@
-﻿@using WebBanHang.Models;
-@model IEnumerable<SanPham>
+﻿
+@using WebBanHang.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<SanPham>
 @{
     ViewBag.Title = "DmCat";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    WebBanHang.Models.WebThuCungEntities db = new WebBanHang.Models.WebThuCungEntities();
 }
 @{
     IEnumerable<SanPham> meocanh = (IEnumerable<SanPham>)ViewBag.MC;
@@ -65,12 +68,36 @@
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="list-view">
-                                        @Html.Partial("~/Views/SanPham/TrangSanPhamPartial2.cshtml")
+                                @Html.Partial("~/Views/SanPham/TrangSanPhamPartial2.cshtml")
                             </div>
                         </div>
                     </div>
                 </div>
+                <span style="margin-top: 10px; color: mediumpurple; font-weight: bold; font-size: 20px">
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                </span>
+                <div class="pagination">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+                                <a class="page-link" href="@Url.Action("DmCat", new { page = Model.PageNumber - 1 })" tabindex="-1">&laquo;</a>
+                            </li>
+
+                            @for (int i = 1; i <= Model.PageCount; i++)
+                            {
+                                <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("DmCat", new { page = i })">@i <span class="sr-only">(current)</span></a>
+                                </li>
+                            }
+
+                            <li class="page-item @(Model.PageNumber == Model.PageCount ? "disabled" : "")">
+                                <a class="page-link" href="@Url.Action("DmCat", new { page = Model.PageNumber + 1 })">&raquo;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
+            @* end tao lien ket cac trang *@
             <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
                 <div class="product-categori">
                     <div class="search-product">
@@ -85,35 +112,33 @@
                         </div>
                         <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
                             <div class="list-group-collapse sub-men">
-                                <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">
-                                    Fruits & Drinks <small class="text-muted">(100)</small>
-                                </a>
-                                <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
-                                    <div class="list-group">
-                                        <a href="#" class="list-group-item list-group-item-action active">Fruits 1 <small class="text-muted">(50)</small></a>
-                                        <a href="#" class="list-group-item list-group-item-action">Fruits 2 <small class="text-muted">(10)</small></a>
-                                        <a href="#" class="list-group-item list-group-item-action">Fruits 3 <small class="text-muted">(10)</small></a>
-                                        <a href="#" class="list-group-item list-group-item-action">Fruits 4 <small class="text-muted">(10)</small></a>
-                                        <a href="#" class="list-group-item list-group-item-action">Fruits 5 <small class="text-muted">(20)</small></a>
-                                    </div>
-                                </div>
+                                @{
+                                    //var tlboes = db.TLboes.ToList();
+                                    var tlboes = db.TLboes.Where(m => m.TenTL == "Mèo Cảnh");
+                                    var index = 0;
+                                }
+
+                                @foreach (var item in tlboes)
+                                {
+                                    var loaisp = db.TheLoais.Where(l => l.idTLbo == item.ID).ToList();
+                                    if (loaisp != null)
+                                    {
+                                        <a class="list-group-item list-group-item-action" href="#sub-men1@(index)" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1@(index)">
+                                            @item.TenTL <small class="text-muted">(@loaisp.Count())</small>
+                                        </a>
+                                        <div class="collapse show" id="sub-men1@(index)" data-parent="#list-group-men">
+                                            @foreach (var sp in loaisp)
+                                            {
+                                                var slco = db.SanPhams.Where(l => l.IdLoaiSP == sp.ID).ToList();
+                                                <div class="list-group">
+                                                    <a href="~/SanPham/PhanLoaiSP?idphanloai=@sp.ID" class="list-group-item list-group-item-action">@sp.TenLoaiSP <small class="text-muted">(@slco.Count())</small></a>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                    index++;
+                                }
                             </div>
-                            <div class="list-group-collapse sub-men">
-                                <a class="list-group-item list-group-item-action" href="#sub-men2" data-toggle="collapse" aria-expanded="false" aria-controls="sub-men2">
-                                    Vegetables
-                                    <small class="text-muted">(50)</small>
-                                </a>
-                                <div class="collapse" id="sub-men2" data-parent="#list-group-men">
-                                    <div class="list-group">
-                                        <a href="#" class="list-group-item list-group-item-action">Vegetables 1 <small class="text-muted">(10)</small></a>
-                                        <a href="#" class="list-group-item list-group-item-action">Vegetables 2 <small class="text-muted">(20)</small></a>
-                                        <a href="#" class="list-group-item list-group-item-action">Vegetables 3 <small class="text-muted">(20)</small></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#" class="list-group-item list-group-item-action"> Grocery  <small class="text-muted">(150) </small></a>
-                            <a href="#" class="list-group-item list-group-item-action"> Grocery <small class="text-muted">(11)</small></a>
-                            <a href="#" class="list-group-item list-group-item-action"> Grocery <small class="text-muted">(22)</small></a>
                         </div>
                     </div>
                     <div class="filter-price-left">
@@ -135,88 +160,20 @@
 </div>
 <!-- End Shop Page -->
 <!-- Start Instagram Feed  -->
-<div class="instagram-box">
-    <div class="main-instagram owl-carousel owl-theme">
-        <div class="item">
-            <div class="ins-inner-box">
-                <img src="images/instagram-img-01.jpg" alt="" />
-                <div class="hov-in">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="ins-inner-box">
-                <img src="images/instagram-img-02.jpg" alt="" />
-                <div class="hov-in">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="ins-inner-box">
-                <img src="images/instagram-img-03.jpg" alt="" />
-                <div class="hov-in">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="ins-inner-box">
-                <img src="images/instagram-img-04.jpg" alt="" />
-                <div class="hov-in">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="ins-inner-box">
-                <img src="images/instagram-img-05.jpg" alt="" />
-                <div class="hov-in">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="ins-inner-box">
-                <img src="images/instagram-img-06.jpg" alt="" />
-                <div class="hov-in">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="ins-inner-box">
-                <img src="images/instagram-img-07.jpg" alt="" />
-                <div class="hov-in">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="ins-inner-box">
-                <img src="images/instagram-img-08.jpg" alt="" />
-                <div class="hov-in">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="ins-inner-box">
-                <img src="images/instagram-img-09.jpg" alt="" />
-                <div class="hov-in">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="ins-inner-box">
-                <img src="images/instagram-img-05.jpg" alt="" />
-                <div class="hov-in">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- End Instagram Feed  -->
+
+<style>
+    .pagination {
+        font-size: 18px;
+        text-align: center;
+        position: relative;
+        left: 38%;
+    }
+</style>
+
+@section scriptcss {
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+}

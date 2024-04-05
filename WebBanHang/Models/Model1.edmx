@@ -59,6 +59,14 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenLoaiSP" Type="nvarchar" MaxLength="200" />
           <Property Name="GhiChu" Type="nvarchar(max)" />
+          <Property Name="idTLbo" Type="int" />
+        </EntityType>
+        <EntityType Name="TLbo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenTL" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <Association Name="FK_PhanQuyen_ChucNang">
           <End Role="ChucNang" Type="Self.ChucNang" Multiplicity="1" />
@@ -96,12 +104,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TheLoai_TLcon">
+          <End Role="TLbo" Type="Self.TLbo" Multiplicity="0..1" />
+          <End Role="TheLoai" Type="Self.TheLoai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TLbo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TheLoai">
+              <PropertyRef Name="idTLbo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="WebThuCungModelStoreContainer">
           <EntitySet Name="ChucNang" EntityType="Self.ChucNang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhanQuyen" EntityType="Self.PhanQuyen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TheLoai" EntityType="Self.TheLoai" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TLbo" EntityType="Self.TLbo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_PhanQuyen_ChucNang" Association="Self.FK_PhanQuyen_ChucNang">
             <End Role="ChucNang" EntitySet="ChucNang" />
             <End Role="PhanQuyen" EntitySet="PhanQuyen" />
@@ -113,6 +134,10 @@
           <AssociationSet Name="FK_SanPham_TheLoai" Association="Self.FK_SanPham_TheLoai">
             <End Role="TheLoai" EntitySet="TheLoai" />
             <End Role="SanPham" EntitySet="SanPham" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TheLoai_TLcon" Association="Self.FK_TheLoai_TLcon">
+            <End Role="TLbo" EntitySet="TLbo" />
+            <End Role="TheLoai" EntitySet="TheLoai" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -179,6 +204,8 @@
           <Property Name="TenLoaiSP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SanPhams" Relationship="Self.FK_SanPham_TheLoai" FromRole="TheLoai" ToRole="SanPham" />
+          <Property Name="idTLbo" Type="Int32" />
+          <NavigationProperty Name="TLbo" Relationship="WebThuCungModel.FK_TheLoai_TLcon" FromRole="TheLoai" ToRole="TLbo" />
         </EntityType>
         <Association Name="FK_PhanQuyen_ChucNang">
           <End Role="ChucNang" Type="Self.ChucNang" Multiplicity="1" />
@@ -234,7 +261,32 @@
             <End Role="TheLoai" EntitySet="TheLoais" />
             <End Role="SanPham" EntitySet="SanPhams" />
           </AssociationSet>
+          <EntitySet Name="TLboes" EntityType="WebThuCungModel.TLbo" />
+          <AssociationSet Name="FK_TheLoai_TLcon" Association="WebThuCungModel.FK_TheLoai_TLcon">
+            <End Role="TLbo" EntitySet="TLboes" />
+            <End Role="TheLoai" EntitySet="TheLoais" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TLbo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenTL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TheLoais" Relationship="WebThuCungModel.FK_TheLoai_TLcon" FromRole="TLbo" ToRole="TheLoai" />
+        </EntityType>
+        <Association Name="FK_TheLoai_TLcon">
+          <End Type="WebThuCungModel.TLbo" Role="TLbo" Multiplicity="0..1" />
+          <End Type="WebThuCungModel.TheLoai" Role="TheLoai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TLbo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TheLoai">
+              <PropertyRef Name="idTLbo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -294,9 +346,18 @@
           <EntitySetMapping Name="TheLoais">
             <EntityTypeMapping TypeName="WebThuCungModel.TheLoai">
               <MappingFragment StoreEntitySet="TheLoai">
+                <ScalarProperty Name="idTLbo" ColumnName="idTLbo" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TenLoaiSP" ColumnName="TenLoaiSP" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TLboes">
+            <EntityTypeMapping TypeName="WebThuCungModel.TLbo">
+              <MappingFragment StoreEntitySet="TLbo">
+                <ScalarProperty Name="TenTL" ColumnName="TenTL" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

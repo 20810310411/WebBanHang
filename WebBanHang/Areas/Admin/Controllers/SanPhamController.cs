@@ -4,17 +4,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebBanHang.Models;
+using PagedList;
+using PagedList.Mvc;
+using System.Web.UI;
 
 namespace WebBanHang.Areas.Admin.Controllers
 {
     public class SanPhamController : Controller
     {
         // GET: Admin/SanPham
-        public ActionResult DanhSach()
+        public ActionResult DanhSach(int ? page)
         {
             WebThuCungEntities db = new WebThuCungEntities();
             List<SanPham> danhsachSanPham = db.SanPhams.ToList();
-            return View(danhsachSanPham);
+            int pageSize = 6;
+            int pageNum = (page ?? 1);
+            return View(danhsachSanPham.ToPagedList(pageNum, pageSize));
         }
         public ActionResult ThemMoi()
         {
